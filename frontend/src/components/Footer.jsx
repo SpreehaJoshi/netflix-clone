@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div className='text-[#737373]' md:px-10>
+    <div className='text-[#737373] md:px-10'>
         <div className='py-20'>
             <p >Developed by Sapphire</p>
             <p>Read about Netflix TV shows and movies and watch bonus videos on Tudum.com.</p>
