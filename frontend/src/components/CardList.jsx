@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 
-const CardList = () => {
+const CardList = (title, category) => {
     const data = [
         {
             id: 1,
@@ -43,6 +43,7 @@ const CardList = () => {
             imageURL: "#"
         }
     ];
+    console.log("Title= ", title, "Category= ", category)
   return (
     <div className="text-white md:px-4">
         <h2 className='pt-10 pb-5 text-lg font-medium'>Upcoming</h2>
