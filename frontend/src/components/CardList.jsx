@@ -1,63 +1,39 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import CardImg from "../assets/cardimg.jpg"
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 
-const CardList = (title, category) => {
-    const data = [
-        {
-            id: 1,
-            title: "Card 1",
-            decription: "Description for Card 2",
-            imageURL: "#"
-        },
-        {
-            id: 2,
-            title: "Card 2",
-            decription: "Description for Card 2",
-            imageURL: "#"
-        },
-        {
-            id: 3,
-            title: "Card 3",
-            decription: "Description for Card 3",
-            imageURL: "#"
-        },
-        {
-            id: 1,
-            title: "Card 1",
-            decription: "Description for Card 2",
-            imageURL: "#"
-        },
-        {
-            id: 2,
-            title: "Card 2",
-            decription: "Description for Card 2",
-            imageURL: "#"
-        },
-        {
-            id: 3,
-            title: "Card 3",
-            decription: "Description for Card 3",
-            imageURL: "#"
-        }
-    ];
-    console.log("Title= ", title, "Category= ", category)
+const CardList = ({title, category}) => {
+    const [data, setData] = useState([]);
+    const options = {
+    method: 'GET',
+    headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
+    }
+};
+
+useEffect(() => {fetch(`https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`, options)
+  .then(res => res.json())
+  .then(res => setData(res.results))
+  .catch(err => console.error(err));
+}, []);
+
   return (
     <div className="text-white md:px-4">
-        <h2 className='pt-10 pb-5 text-lg font-medium'>Upcoming</h2>
+        <h2 className='pt-10 pb-5 text-lg font-medium'>{title}</h2>
 
         <Swiper slidesPerView={"auto"} spaceBetween={10} className='mySwiper'>
         {data.map((item, index) => (
             <SwiperSlide key={index} className='max-w-72'>
-                <img src={CardImg} alt="" className='h-44 w-full object-center object-cover'></img>
-                <p className='text-center pt-2'>Very Good Movie</p>
+                <img src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`} alt="" className='h-44 w-full object-center object-cover'></img>
+                <p className='text-center pt-2'>{item.original_title}</p>
             </SwiperSlide>
         ))}
         </Swiper>
     </div>
-  )
-}
+  );
+};
 
 export default CardList
